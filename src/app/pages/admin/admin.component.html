@@ -1,0 +1,76 @@
+<div class="w-full my-1 px-3 py-2 mb-4 sm:pb-0 pb-12">
+  <div
+    class="m-6 p-5 bg-gradient-to-r from-pink-600 via-pink-900 to-pink-600 text-white text-center rounded-lg"
+  >
+    <img src="/public/avatar.jpg" alt="Avatar" class="w-full" />
+    <div class="mt-5">
+      <p class="text-white">
+        <span class="font-bold text-pink-100">Name:</span>
+        {{ localUserData.fullName }}
+      </p>
+      <p class="text-white">
+        <span class="font-bold text-pink-100">Email ID:</span>
+        {{ localUserData.emailId }}
+      </p>
+      <p class="text-white">
+        <span class="font-bold text-pink-100">Date:</span>
+        {{ localUserData.date }}
+      </p>
+      <p class="text-white">
+        <span class="font-bold text-pink-100">Role:</span>
+        {{ localUserData.role }}
+      </p>
+    </div>
+  </div>
+
+  <div class="my-5 flex gap-2">
+    <button
+      class="border-2 border-pink-500 rounded-md bg-pink-900 px-3 py-2 text-white hover:bg-pink-700"
+      (click)="setStatus('users')"
+    >
+      Users
+    </button>
+    <button
+      class="border-2 border-pink-500 rounded-md bg-pink-900 px-3 py-2 text-white hover:bg-pink-700"
+      (click)="setStatus('vendors')"
+    >
+      Vendors
+    </button>
+    <button
+      class="border-2 border-pink-500 rounded-md bg-pink-900 px-3 py-2 text-white hover:bg-pink-700"
+      (click)="setStatus('bookings')"
+    >
+      Bookings
+    </button>
+    <button
+      class="border-2 border-pink-500 rounded-md bg-pink-900 px-3 py-2 text-white hover:bg-pink-700"
+      (click)="setStatus('bus')"
+    >
+      Bus
+    </button>
+    <button
+      class="border-2 border-pink-500 rounded-md bg-pink-900 px-3 py-2 text-white hover:bg-pink-700"
+      (click)="setStatus('location')"
+    >
+      Location
+    </button>
+  </div>
+
+  <div class="my-4" [ngSwitch]="status">
+    <div *ngSwitchCase="'users'">
+      <app-users></app-users>
+    </div>
+    <div *ngSwitchCase="'vendors'">
+      <app-vendors></app-vendors>
+    </div>
+    <div *ngSwitchCase="'bookings'">
+      <app-bookings></app-bookings>
+    </div>
+    <div *ngSwitchCase="'bus'">
+      <app-bus></app-bus>
+    </div>
+    <div *ngSwitchCase="'location'">
+      <app-location></app-location>
+    </div>
+  </div>
+</div>

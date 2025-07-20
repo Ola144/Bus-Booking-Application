@@ -1,0 +1,117 @@
+<div class="bg-gradient-to-t from-gray-600 to-gray-300 w-full min-h-screen">
+  <div class="flex justify-center items-center h-screen">
+    <div class="bg-white p-5 w-auto rounded-lg">
+      <h1 class="text-center text-black text-4xl font-bold">
+        <i class="fa fa-book mr-2"></i>Book Your Bus Ticket
+      </h1>
+      <form #searchForm="ngForm">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-6">
+          <div>
+            <label for="from"
+              ><i class="fa fa-location-arrow mr-1"></i>From<span
+                class="text-red-600"
+                >*</span
+              ></label
+            >
+            <select
+              id="from"
+              class="py-3 px-2 border-2 border-gray-400 bg-white focus:border-gray-400 w-full rounded-md"
+              [(ngModel)]="searchObj.fromLocationId"
+              name="fromLocationId"
+              #fromLocationId="ngModel"
+              required
+              [class]="
+                fromLocationId.invalid && fromLocationId.touched
+                  ? 'is-invalid'
+                  : ''
+              "
+            >
+              <option value="">Select From Location</option>
+              @for (item of locationList; track $index) {
+              <option [value]="item.locationName">
+                {{ item.locationName }}
+              </option>
+              }
+            </select>
+            @if (fromLocationId.invalid && fromLocationId.touched) {
+            <div class="text-red-600 text-sm">
+              @if (fromLocationId.errors?.['required']) {
+              <span>*From location is a required field!</span>
+              }
+            </div>
+            }
+          </div>
+          <div>
+            <label for="to"
+              ><i class="fa fa-location-arrow mr-1"></i>To<span
+                class="text-red-600"
+                >*</span
+              ></label
+            >
+            <select
+              id="to"
+              class="py-3 px-2 border-2 border-gray-400 bg-white focus:border-gray-400 w-full rounded-md"
+              name="toLocationId"
+              [(ngModel)]="searchObj.toLocationId"
+              #toLocationId="ngModel"
+              required
+              [class]="
+                toLocationId.invalid && toLocationId.touched ? 'is-invalid' : ''
+              "
+            >
+              <option value="">Select To Location</option>
+              @for (item of locationList; track $index) {
+              <option [value]="item.locationName">
+                {{ item.locationName }}
+              </option>
+              }
+            </select>
+            @if (toLocationId.invalid && toLocationId.touched) {
+            <div class="text-red-600 text-sm">
+              @if (toLocationId.errors?.['required']) {
+              <span>*To location is a required field!</span>
+              }
+            </div>
+            }
+          </div>
+        </div>
+        <div class="my-2">
+          <label for="date"
+            ><i class="fa fa-calendar block mr-1"></i>Date of Journey<span
+              class="text-red-600"
+              >*</span
+            ></label
+          >
+          <input
+            type="date"
+            id="date"
+            class="py-3 px-2 border-2 block border-gray-400 bg-white focus:border-gray-400 w-full lg:w-2/4 rounded-md"
+            name="date"
+            [(ngModel)]="searchObj.date"
+            required
+            #date="ngModel"
+            [class]="date.invalid && date.touched ? 'is-invalid' : ''"
+          />
+          @if (date.invalid && date.touched) {
+          <div class="text-red-600 text-sm">
+            @if (date.errors?.['required']) {
+            <span>*Date is a required field!</span>
+            }
+          </div>
+          }
+        </div>
+        <div class="text-center flex justify-center mx-auto text-white">
+          <button
+            class="py-3 px-4 w-auto bg-blue-800 hover:bg-blue-500 rounded-lg"
+            (click)="searchBus()"
+            [disabled]="searchForm.invalid"
+            [class]="searchForm.invalid ? 'bg-blue-500 cursor-not-allowed' : ''"
+            type="button"
+          >
+            <i class="fa fa-search mr-2"></i>Search Buses
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

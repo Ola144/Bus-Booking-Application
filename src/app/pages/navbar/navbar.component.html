@@ -1,0 +1,123 @@
+<div
+  class="w-full py-4 px-6 bg-gradient-to-t from-blue-400 via-blue-500 to-blue-400 fixed top-0 left-0 z-40"
+>
+  <div class="sm:flex block justify-between items-center">
+    <div class="text-white">
+      <a class="text-lg cursor-pointer" routerLink="/home">
+        <span class="text-black font-bold">
+          <i class="fa fa-bus"></i>
+        </span>
+        Bus Booking</a
+      >
+    </div>
+    @if (isLoggedIn) {
+    <div
+      class="text-md font-bold sm:flex sm:items-center block linkDiv mr-24 gap-3"
+      #links
+    >
+      <!-- sm:mr-10 lg:mr-24 -->
+      <a
+        routerLink="/home"
+        routerLinkActive="active"
+        class="text-white w-auto hover:text-black text-lg block sm:flex sm:mb-0 sm:mt-0 mt-2 cursor-pointer relative"
+        >Home</a
+      >
+      <a
+        routerLink="/search"
+        routerLinkActive="active"
+        class="text-white w-auto hover:text-black text-lg block sm:flex sm:mb-0 sm:mt-0 mt-2 cursor-pointer relative"
+        >Search</a
+      >
+      @if (isLoggedIn) { @if (localUser?.role === 'Admin') {
+      <a
+        routerLink="/admin"
+        routerLinkActive="active"
+        class="text-white w-auto hover:text-black text-lg block sm:flex sm:mb-0 sm:mt-0 mt-2 cursor-pointer relative"
+        >Admin</a
+      >
+      } @if(localUser?.role === "Customer") {
+      <a
+        routerLink="/user"
+        routerLinkActive="active"
+        class="text-white w-auto hover:text-black text-lg block sm:flex sm:mb-0 sm:mt-0 mt-2 cursor-pointer relative"
+      >
+        {{ localUser?.fullName }}
+      </a>
+      } }
+    </div>
+    }
+  </div>
+
+  <div
+    class="absolute top-3 right-0 font-semibold text-xl ml-2 cursor-pointer sm:mr-2 size-auto accountBtn"
+  >
+    <!-- <i
+      routerLink="/logged-user"
+      class="fa fa-user bg-black py-1 px-2 rounded-full text-white"
+    ></i> -->
+    @if (isLoggedIn) {
+    <button
+      class="w-24 py-2 px-1 text-white bg-red-600 rounded-md hover:bg-red-400 text-sm"
+      (click)="logOut()"
+    >
+      Log Out <i class="fa fa-sign-out"></i>
+    </button>
+    } @else {
+    <button
+      class="w-24 py-2 px-1 text-white bg-green-600 rounded-md hover:bg-green-400 text-sm"
+      routerLink="/account"
+    >
+      Log In <i class="fa fa-sign-in"></i>
+    </button>
+    }
+  </div>
+
+  <!-- @if (isLoggedIn) {
+  <div
+    class="mx-2 sm:hidden pointer absolute top-4 right-3 ml-3 toggleMenu"
+    (click)="toggleMenu()"
+    style="cursor: pointer"
+  >
+    <span class="text-lg pointer ml-3">
+      <i class="fa fa-bars text-white"></i>
+    </span>
+  </div>
+  } -->
+</div>
+@if (isLoggedIn) {
+<div
+  class="bottom-0 bg-gradient-to-bl from-blue-400 via-blue-500 to-blue-400 w-60 text-center mx-auto fixed z-40 py-2 rounded-lg iconDiv hidden"
+>
+  <div class="font-bold flex items-center gap-6 w-full justify-center" #links>
+    <a
+      routerLink="/home"
+      routerLinkActive="active"
+      class="text-white w-auto hover:text-black text-3xl cursor-pointer relative"
+      ><i class="fa fa-home"></i
+    ></a>
+    <a
+      routerLink="/search"
+      routerLinkActive="active"
+      class="text-white w-auto hover:text-black text-3xl cursor-pointer relative"
+      ><i class="fa fa-search"></i
+    ></a>
+    @if (isLoggedIn) { @if (localUser?.role == 'Admin') {
+    <a
+      routerLink="/admin"
+      routerLinkActive="active"
+      class="text-white w-auto hover:text-black text-3xl cursor-pointer relative"
+    >
+      <i class="fa fa-users"></i>
+    </a>
+    } @if(localUser?.role === "Customer") {
+    <a
+      routerLink="/user"
+      routerLinkActive="active"
+      class="text-white w-auto hover:text-black text-3xl cursor-pointer relative"
+    >
+      <i class="fa fa-user"></i>
+    </a>
+    } }
+  </div>
+</div>
+}

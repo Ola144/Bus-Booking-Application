@@ -1,0 +1,208 @@
+<div class="m-8 pt-10 min-h-screen">
+  @for (item of scheduleBusList; track $index) {
+  <div
+    class="border-l-4 border-pink-600 mb-4 bg-white py-8 px-5 rounded-md shadow-2xl"
+  >
+    <div class="flex justify-between items-center">
+      <div>
+        <h2 class="text-xl font-bold">{{ item.busName }}</h2>
+        <p class="text-sm text-gray-400 font-bold">
+          Date of Journey:
+          {{ searchBusResult?.dateOfJourney | date : "fullDate" }}
+        </p>
+      </div>
+      <div>
+        <h2 class="text-md font-bold">
+          {{ item.fromLocationName }} <i class="fa fa-arrows-h"></i>
+          {{ item.toLocationName }}
+        </h2>
+        <p class="text-sm text-gray-400 font-bold">Duration: 8h 30m</p>
+      </div>
+    </div>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-1 gap-2">
+    <div
+      class="border-l-4 border-pink-600 mb-4 bg-white py-8 px-5 rounded-md shadow-2xl col-span-1"
+    >
+      <div class="flex justify-between items-center">
+        <h3 class="text-black font-bold text-lg">Select Seats</h3>
+        <div class="flex gap-3 text-gray-500 text-sm font-bold">
+          <span
+            ><i class="px-1 py-0 rounded-sm mr-1 border-2 border-pink-600"></i>
+            Available</span
+          >
+          <span
+            ><i
+              class="px-1 py-0 rounded-sm mr-1 border-2 border-gray-400 bg-gray-400"
+            ></i>
+            Booked
+          </span>
+          <span
+            ><i
+              class="px-1 py-0 rounded-sm mr-1 border-2 border-pink-600 bg-pink-600"
+            ></i>
+            Selected
+          </span>
+        </div>
+      </div>
+
+      <div class="w-full px-3 mx-auto py-6 mt-10">
+        <div class="text-center">
+          <p class="text-xl font-bold text-gray-400">
+            <i class="fa fa-bus"></i>
+          </p>
+          <p class="text-sm font-bold text-gray-400 mb-5">Front</p>
+        </div>
+
+        <div class="grid grid-cols-4">
+          @for (item of seatNoList; track $index) { @if
+          (checkIfSeatBooked($index+1)) {
+          <button class="w-16 m-5 p-2 bg-gray-400 rounded-md" disabled>
+            {{ item }}
+          </button>
+          } @else {
+          <button
+            class="w-16 m-5 p-2 border-2 rounded-md"
+            [class]="
+              checkIfSeatSelected(item) ? 'bg-pink-600' : 'border-pink-600'
+            "
+            [disabled]="checkIfSeatBooked(item)"
+            (click)="onSelectSeatNo(item)"
+          >
+            {{ item }}
+          </button>
+          } }
+        </div>
+      </div>
+    </div>
+    <div
+      class="border-l-4 border-pink-600 mb-4 bg-white py-8 px-5 rounded-md shadow-2xl col-span-1 h-fit"
+    >
+      <h2 class="text-black font-bold text-xl">Booking Summary</h2>
+      <p class="text-md my-3 font-bold">Selected Seats</p>
+      <div class="mb-3">
+        @if (selectedSeatArray.length == 0) {
+        <p class="text-md my-3">No Seats Selected</p>
+        } @else {
+        <div class="flex gap-2">
+          @for (item of selectedSeatArray; track $index) {
+          <span
+            class="inline-block px-2 py-1 text-xs font-semibold text-white bg-blue-600 rounded-full"
+            >{{ item.seatNo }}</span
+          >
+          }
+        </div>
+        }
+      </div>
+
+      <div class="mt-6">
+        <form #bookingForm="ngForm" class="mt-5">
+          @if (selectedSeatArray.length >0) {
+          <h2 class="text-lg font-semibold">Contact Detail</h2>
+          <!--  @for (item of selectedSeatArray; track $index) { -->
+
+          <div class="grid grid-cols-3 gap-6 mt-4">
+            <div>
+              <label class="mt-4" for="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                class="w-full border-2 border-pink-900 rounded-md bg-white px-3 py-2"
+                placeholder="Enter Name"
+                name="passengerName"
+                required
+                #passengerName="ngModel"
+                [(ngModel)]="selectSeat.passengerName"
+                [class]="
+                  passengerName.invalid && passengerName.touched
+                    ? 'is-invalid'
+                    : ''
+                "
+              />
+              @if (passengerName.invalid && passengerName.touched) {
+              <div class="text-red-600 text-xs">
+                @if (passengerName.errors?.['required']) {
+                <span>*Name is a required field!</span>
+                }
+              </div>
+              }
+            </div>
+            <div>
+              <label for="age">Age</label>
+              <input
+                type="number"
+                id="age"
+                class="w-full border-2 border-pink-900 rounded-md bg-white px-3 py-2"
+                placeholder="Enter Age"
+                name="age"
+                required
+                #age="ngModel"
+                [(ngModel)]="selectSeat.age"
+                [class]="age.invalid && age.touched ? 'is-invalid' : ''"
+              />
+              @if (age.invalid && age.touched) {
+              <div class="text-red-600 text-sm">
+                @if (age.errors?.['required']) {
+                <span>*Age is a required field!</span>
+                }
+              </div>
+              }
+            </div>
+            <div>
+              <label>Gender</label>
+              <br />
+              <input
+                type="radio"
+                id="male"
+                [name]="'gender' + $index"
+                value="Male"
+                [(ngModel)]="selectSeat.gender"
+                required
+                #gender="ngModel"
+              />
+              <label for="male">Male</label>
+              <input
+                type="radio"
+                id="female"
+                [name]="'gender' + $index"
+                value="Female"
+                [(ngModel)]="selectSeat.gender"
+                required
+                #gender="ngModel"
+              />
+              <label for="female">Female</label>
+            </div>
+          </div>
+          <!-- } @if (selectedSeatArray.length > 0) {  -->
+          @if (!isBookingTicektLoading) {
+          <button
+            class="py-3 px-4 mt-5 w-full bg-pink-800 hover:bg-pink-500 rounded-lg"
+            type="button"
+            (click)="bookTicket()"
+            [class]="
+              bookingForm.invalid ? 'bg-pink-500 cursor-not-allowed' : ''
+            "
+            [disabled]="bookingForm.invalid"
+          >
+            Book Ticket
+          </button>
+          } @else {
+          <button
+            class="py-3 px-4 mt-5 w-full bg-gray-400 rounded-lg flex items-center justify-center cursor-not-allowed"
+            type="button"
+            disabled
+          >
+            <span
+              class="size-11 w-6 h-6 border-4 border-white border-t-blue-400 mr-2 rounded-full animate-spin"
+            ></span>
+            Processing...
+          </button>
+          }
+          <!-- } -->
+          }
+        </form>
+      </div>
+    </div>
+  </div>
+  }
+</div>

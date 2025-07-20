@@ -1,0 +1,223 @@
+<div class="flex justify-between mb-2 mt-5">
+  <h1 class="text-pink-800 font-bold text-3xl">Vendors</h1>
+  <button
+    class="w-auto border-2 border-pink-500 hover:bg-pink-500 rounded-md bg-pink-400 px-3 py-2 text-white"
+    (click)="openVendorForm()"
+  >
+    Add Vendor
+  </button>
+</div>
+<div class="">
+  <table class="border-2 border-pink-300 w-full">
+    <thead class="bg-black text-white">
+      <tr class="border-pink-300 border-2">
+        <th class="border-pink-300 border-2">S/N</th>
+        <th class="border-pink-300 border-2">Name</th>
+        <th class="border-pink-300 border-2">Email</th>
+        <th class="border-pink-300 border-2">Contact</th>
+        <th class="border-pink-300 border-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of vendorList; track $index) {
+      <tr class="text-center">
+        <td class="border-pink-300 border-2">{{ $index + 1 }}</td>
+        <td class="border-pink-300 border-2">{{ item.vendorName }}</td>
+        <td class="border-pink-300 border-2">{{ item.emailId }}</td>
+        <td class="border-pink-300 border-2">{{ item.contactNo }}</td>
+        <td class="border-pink-300 border-2">
+          <button
+            class="text-red-900 text-lg hover:text-red-700 mr-3"
+            (click)="onDeleteVendor(item)"
+          >
+            <i class="fa fa-trash"></i>
+          </button>
+          <button
+            class="text-green-900 text-lg hover:text-green-700"
+            (click)="onEditVendor(item)"
+          >
+            <i class="fa fa-edit"></i>
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+@if (isVendorFormVisible) {
+<div
+  class="w-full min-h-full absolute top-0 left-0 z-50 bg-gray-900/50 flex items-center justify-center overflow-x-hidden transition-all ease-in-out"
+>
+  <div class="w-96 bg-slate-300 py-2 px-3 rounded-md">
+    <div class="flex items-center justify-between my-4 mx-3">
+      <h1 class="text-start font-bold text-black text-xl">
+        {{ vendorId == "" ? "Create New Vendor" : "Update Vendor" }}
+      </h1>
+      <span class="text-white text-3xl cursor-pointer">
+        <i class="fa fa-close" (click)="closeVendorForm()"></i>
+      </span>
+    </div>
+
+    <form [formGroup]="vendorForm">
+      <label for="vendorName" class="text-white my-2 font-bold"
+        >Full Name<span class="text-red-700">*</span></label
+      >
+      <input
+        type="text"
+        class="w-full border-5 border-blue-900 rounded-md bg-white px-3 py-2"
+        formControlName="vendorName"
+        name="vendorName"
+        id="vendorName"
+        placeholder="Vendor Name"
+        [class]="
+          vendorForm.get('vendorName')?.invalid &&
+          vendorForm.get('vendorName')?.touched
+            ? 'is-invalid'
+            : ''
+        "
+      />
+      @if (vendorForm.get('vendorName')?.invalid &&
+      vendorForm.get('vendorName')?.touched) {
+      <div class="text-red-700 text-sm">
+        @if (vendorForm.controls['vendorName'].errors?.['required']) {
+        <span>Vendor name is a required field!</span>
+        }
+      </div>
+      }
+
+      <label for="email" class="text-white my-2 font-bold"
+        >Email<span class="text-red-700">*</span></label
+      >
+      <input
+        type="email"
+        class="w-full border-5 border-blue-900 rounded-md bg-white px-3 py-2"
+        formControlName="emailId"
+        name="emailId"
+        id="email"
+        placeholder="Email"
+        [class]="
+          vendorForm.get('emailId')?.invalid &&
+          vendorForm.get('emailId')?.touched
+            ? 'is-invalid'
+            : ''
+        "
+      />
+
+      @if (vendorForm.get('emailId')?.invalid &&
+      vendorForm.get('emailId')?.touched) {
+      <div class="text-red-700 text-sm">
+        @if (vendorForm.controls['emailId'].errors?.['required']) {
+        <span>Email is a required field!</span>
+        } @if (vendorForm.controls['emailId'].errors?.['email']) {
+        <span>Please provide a valid email address!</span>
+        }
+      </div>
+      }
+      <label for="contactNo" class="text-white my-2 font-bold"
+        >Contact No<span class="text-red-700">*</span></label
+      >
+      <input
+        type="text"
+        class="w-full border-5 border-blue-900 rounded-md bg-white px-3 py-2"
+        formControlName="contactNo"
+        name="contactNo"
+        id="contactNo"
+        placeholder="Contact No"
+        [class]="
+          vendorForm.get('contactNo')?.invalid &&
+          vendorForm.get('contactNo')?.touched
+            ? 'is-invalid'
+            : ''
+        "
+      />
+      @if (vendorForm.get('contactNo')?.invalid &&
+      vendorForm.get('contactNo')?.touched) {
+      <div class="text-red-700 text-sm">
+        @if (vendorForm.controls['contactNo'].errors?.['required']) {
+        <span>Contact No is a required field!</span>
+        }
+      </div>
+      } @if (vendorId == '') { @if (!isCreateVendorLoading) {
+      <button
+        class="w-full bg-blue-900 rounded-md text-white my-3 py-3 text-center hover:bg-white hover:text-blue-900"
+        (click)="createVendor()"
+      >
+        Create Vendor
+      </button>
+      } @else {
+      <button
+        type="button"
+        disabled
+        class="w-full bg-gray-400 rounded-md my-3 py-3 text-white flex items-center justify-center cursor-not-allowed"
+        disabled
+      >
+        <span
+          class="size-11 w-6 h-6 border-4 border-white border-t-blue-400 mr-2 rounded-full animate-spin"
+        ></span>
+        Processing…
+      </button>
+      } } @else { @if (!isUpdateVendorLoading) {
+      <button
+        class="w-full bg-blue-900 rounded-md text-white my-3 py-3 text-center hover:bg-white hover:text-blue-900"
+        (click)="updateVendor()"
+      >
+        Update Vendor
+      </button>
+      } @else {
+      <button
+        type="button"
+        disabled
+        class="w-full bg-gray-400 rounded-md my-3 py-3 text-white flex items-center justify-center cursor-not-allowed"
+        disabled
+      >
+        <span
+          class="size-11 w-6 h-6 border-4 border-white border-t-blue-400 mr-2 rounded-full animate-spin"
+        ></span>
+        Processing…
+      </button>
+      } }
+    </form>
+  </div>
+</div>
+} @if (isConfirmDeletVendorVisible) {
+<div
+  class="w-full min-h-full absolute top-0 left-0 z-50 bg-gray-900/50 flex items-center justify-center overflow-x-hidden transition-all ease-in-out"
+>
+  <div class="w-80 bg-white py-5 px-4 rounded-md">
+    <p class="text-black text-sm">
+      Are you sure want to delete the vendor - "{{ vendorName }}"?
+    </p>
+    <div class="flex justify-end gap-2 my-2">
+      <button
+        class="bg-gray-600 text-white w-16 py-2 px-1 rounded-md hover:bg-gray-400"
+        (click)="isConfirmDeletVendorVisible = false"
+        [disabled]="isDeleteVendorLoading"
+        [class]="isDeleteVendorLoading ? 'cursor-not-allowed' : ''"
+      >
+        Cancel
+      </button>
+      @if (!isDeleteVendorLoading) {
+      <button
+        class="bg-red-600 text-white w-16 py-2 px-1 rounded-md hover:bg-red-400"
+        (click)="deleteVendor()"
+      >
+        Delete
+      </button>
+      } @else {
+      <button
+        type="button"
+        disabled
+        class="bg-gray-400 text-white w-32 py-2 px-1 rounded-md flex items-center justify-center cursor-not-allowed"
+        disabled
+      >
+        <span
+          class="size-11 w-6 h-6 border-4 border-white border-t-blue-400 mr-2 rounded-full animate-spin"
+        ></span>
+        Processing…
+      </button>
+      }
+    </div>
+  </div>
+</div>
+}

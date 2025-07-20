@@ -1,0 +1,263 @@
+<div class="bg-blue-500 w-full h-full">
+  <div
+    class="flex justify-center items-center"
+    style="height: 80vh; transform: translateY(50px)"
+  >
+    <div class="w-96 rounded-lg h-full">
+      <div class="flex justify-center py-4 mt-3 bg-gray-900/50 rounded-t-lg">
+        <h3
+          class="text-white font-bold me-4 activeBtn cursor-pointer pointer"
+          (click)="logIn()"
+          #loginBtn
+        >
+          Log In
+        </h3>
+        <h3
+          class="text-white font-bold ms-4 cursor-pointer"
+          (click)="signUp()"
+          #signupBtn
+        >
+          Sign Up
+        </h3>
+      </div>
+      <div class="w-full relative formDiv h-full">
+        <!-- Log In Forms -->
+        <div
+          class="w-full px-5 py-3 rounded-b-lg absolute top-0 login bg-gray-900/50 h-fit"
+          #login
+        >
+          <h1 class="text-center font-bold text-black text-xl">Log In</h1>
+          <form #loginForm="ngForm">
+            <label for="emailIdLogin" class="text-white my-2 font-bold"
+              >Email<span class="text-red-700">*</span></label
+            >
+            <input
+              type="email"
+              class="w-full border-5 border-blue-900 rounded-md bg-white px-3 py-2"
+              name="emailId"
+              [(ngModel)]="loginObj.emailId"
+              id="emailIdLogin"
+              placeholder="Email"
+              #emailId="ngModel"
+              required
+              email
+              [class]="emailId.invalid && emailId.touched ? 'is-invalid' : ''"
+            />
+            @if (emailId.invalid && emailId.touched) {
+            <div class="text-red-500 text-sm">
+              @if (emailId.errors?.['required']) {
+              <span>Email is a required field!</span>
+              } @if (emailId.errors?.['email']) {
+              <span>Provide a valid email address!</span>
+              }
+            </div>
+            }
+
+            <label for="password" class="text-white my-2 font-bold"
+              >Password<span class="text-red-500">*</span></label
+            >
+            <div class="relative">
+              <input
+                type="password"
+                class="w-full border-5 border-blue-900 rounded-md bg-white px-3 py-2"
+                name="password"
+                [(ngModel)]="loginObj.password"
+                placeholder="Password"
+                #loginPassword
+                #password="ngModel"
+                required
+                [class]="
+                  password.invalid && password.touched ? 'is-invalid' : ''
+                "
+              />
+              @if (password.invalid && password.touched) {
+              <div class="text-red-500 text-sm">
+                @if (password.errors?.['required']) {
+                <span>Password is a required field!</span>
+                }
+              </div>
+
+              } @if (isShowLogInPasswordIconVisible) {
+              <i
+                class="fa fa-eye absolute top-0 h-10 right-0 text-white bg-blue-900 py-2 px-2 rounded-r-md cursor-pointer"
+                (click)="showLoginPassword()"
+              ></i>
+              } @else {
+              <i
+                class="fa fa-eye-slash absolute top-0 h-10 right-0 text-white bg-blue-900 py-2 px-2 rounded-r-md cursor-pointer"
+                (click)="showLoginPassword()"
+              ></i>
+              }
+            </div>
+
+            @if (!isLoginLoading) {
+            <button
+              class="w-full bg-blue-800 rounded-md text-white my-3 py-3 text-center hover:bg-white hover:text-blue-900"
+              (click)="loginUser()"
+              [disabled]="loginForm.invalid"
+              [class]="
+                loginForm.invalid
+                  ? 'cursor-not-allowed hover:text-white hover:bg-blue-800'
+                  : 'cursor-pointer'
+              "
+            >
+              Log In
+            </button>
+            } @else {
+            <button
+              type="button"
+              disabled
+              class="w-full bg-gray-400 rounded-md my-3 py-3 text-white flex items-center justify-center cursor-not-allowed"
+              disabled
+            >
+              <span
+                class="size-11 w-6 h-6 border-4 border-white border-t-blue-400 mr-2 rounded-full animate-spin"
+              ></span>
+              Processing…
+            </button>
+            }
+          </form>
+          <p class="text-white font-md">
+            Don't have account yet, signup
+            <a
+              type="button"
+              (click)="signUp()"
+              class="text-black cursor-pointer hover:underline"
+              >here.</a
+            >
+          </p>
+        </div>
+        <!-- Sign Up Forms -->
+        <div
+          class="w-full px-5 py-3 rounded-b-lg absolute top-0 signup bg-gray-900/50 h-fit"
+          #signup
+        >
+          <h1 class="text-center font-bold text-black text-xl">Sign Up</h1>
+          <form #signUpForm="ngForm">
+            <label for="fullName" class="text-white my-2 font-bold"
+              >Full Name<span class="text-red-700">*</span></label
+            >
+            <input
+              type="text"
+              class="w-full border-5 border-blue-900 rounded-md bg-white px-3 py-2"
+              name="fullName"
+              [(ngModel)]="signupObj.fullName"
+              id="fullName"
+              placeholder="Full Name"
+              #fullName="ngModel"
+              required
+              [class]="fullName.invalid && fullName.touched ? 'is-invalid' : ''"
+            />
+            @if (fullName.invalid && fullName.touched) {
+            <div class="text-red-500 text-sm">
+              @if (fullName.errors?.['required']) {
+              <span>Full name is a required field!</span>
+              }
+            </div>
+            }
+
+            <label for="emailIdSignup" class="text-white my-2 font-bold"
+              >Email<span class="text-red-700">*</span></label
+            >
+            <input
+              type="email"
+              class="w-full border-5 border-blue-900 rounded-md bg-white px-3 py-2"
+              name="emailId"
+              [(ngModel)]="signupObj.emailId"
+              id="emailIdSignup"
+              placeholder="Email"
+              #email="ngModel"
+              required
+              email
+              [class]="email.invalid && email.touched ? 'is-invalid' : ''"
+            />
+            @if (email.invalid && email.touched) {
+            <div class="text-red-500 text-sm">
+              @if (email.errors?.['required']) {
+              <span>Email is a required field!</span>
+              } @if (email.errors?.['email']) {
+              <span>Please provide a valid email address!</span>
+              }
+            </div>
+            }
+
+            <label for="password" class="text-white my-2 font-bold"
+              >Password<span class="text-red-700">*</span></label
+            >
+            <div class="relative">
+              <input
+                type="password"
+                class="w-full border-5 border-blue-900 rounded-md bg-white px-3 py-2"
+                name="password"
+                [(ngModel)]="signupObj.password"
+                placeholder="Password"
+                #signupPassword
+                #signuppassword="ngModel"
+                required
+                [class]="
+                  signuppassword.invalid && signuppassword.touched
+                    ? 'is-invalid'
+                    : ''
+                "
+              />
+              @if (signuppassword.invalid && signuppassword.touched) {
+              <div class="text-red-500 text-sm">
+                @if (signuppassword.errors?.['required']) {
+                <span>Password is a required field!</span>
+                }
+              </div>
+              } @if(isShowSignUpPasswordIconVisible){
+              <i
+                class="fa fa-eye absolute top-0 h-10 right-0 text-white bg-blue-900 py-2 px-2 rounded-r-md cursor-pointer"
+                (click)="showSignupPassword()"
+              ></i>
+              } @else {
+              <i
+                class="fa fa-eye-slash absolute top-0 h-10 right-0 text-white bg-blue-900 py-2 px-2 rounded-r-md cursor-pointer"
+                (click)="showSignupPassword()"
+              ></i>
+              }
+            </div>
+
+            @if (!isSignupLoading) {
+            <button
+              class="w-full bg-blue-800 rounded-md text-white my-3 py-3 text-center hover:bg-white hover:text-blue-900"
+              (click)="signUpUser()"
+              [disabled]="signUpForm.invalid"
+              [class]="
+                signUpForm.invalid
+                  ? 'cursor-not-allowed  hover:text-white hover:bg-blue-800'
+                  : 'cursor-pointer'
+              "
+            >
+              Sign Up
+            </button>
+            } @else {
+            <button
+              type="button"
+              disabled
+              class="w-full bg-gray-400 rounded-md my-3 py-3 text-white flex items-center justify-center cursor-not-allowed"
+              disabled
+            >
+              <span
+                class="size-11 w-6 h-6 border-4 border-white border-t-blue-400 mr-2 rounded-full animate-spin"
+              ></span>
+              Processing…
+            </button>
+            }
+
+            <p class="text-white font-md">
+              Already have account, login
+              <a
+                type="button"
+                (click)="logIn()"
+                class="text-black cursor-pointer hover:underline"
+                >here.</a
+              >
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

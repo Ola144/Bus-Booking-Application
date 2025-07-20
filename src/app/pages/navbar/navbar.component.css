@@ -1,0 +1,40 @@
+@media (max-width: 640px) {
+  .linkDiv {
+    display: none;
+    transition: all 0.5s ease-in-out;
+    margin-right: 0px !important;
+  }
+
+  .linkDiv a {
+    transform: translateY(0%);
+    transition: all 0.5s ease-in-out;
+  }
+
+  .iconDiv {
+    display: block;
+    left: 30%;
+  }
+
+  .iconDiv .active {
+    background-color: red;
+    padding: 5px 10px;
+    border-radius: 50%;
+  }
+
+  .toggleMenu {
+    display: block;
+  }
+
+  .accountBtn {
+    right: 10px !important;
+  }
+}
+
+/* .username {
+  display: none;
+}
+
+.userIcon:hover .username {
+  display: block;
+  transition: all 10ms ease-in-out;
+} */

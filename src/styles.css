@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/tailwindcss/base.css";
+@import "../node_modules/tailwindcss/components.css";
+@import "../node_modules/tailwindcss/utilities.css";
+
+@import "../node_modules/font-awesome/css/font-awesome.css";
+@import "ngx-toastr/toastr";
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+* {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.is-invalid {
+  border: 2px solid red;
+}
+
+.active::after {
+  content: "";
+  width: 100%;
+  height: 5px;
+  position: absolute;
+  top: 24px;
+  left: 0;
+  background-color: red;
+}
+
+.iconDiv .active::after {
+  content: "";
+  width: 0;
+  height: 0;
+}
+
+@media (max-width: 640px) {
+  .active {
+    width: fit-content;
+    padding: 0px 0px;
+  }
+}
