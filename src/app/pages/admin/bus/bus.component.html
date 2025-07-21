@@ -1,7 +1,7 @@
 <div class="flex justify-between mb-2 mt-5">
-  <h1 class="text-pink-800 font-bold text-3xl">Bus</h1>
+  <h1 class="text-blue-800 font-bold text-3xl">Bus</h1>
   <button
-    class="w-auto border-2 border-pink-500 rounded-md bg-pink-400 px-4 py-2 text-white hover:bg-pink-500"
+    class="w-auto border-2 border-blue-500 rounded-md bg-blue-400 px-4 py-2 text-white hover:bg-blue-500"
     (click)="openBusForm()"
   >
     Add Bus
@@ -9,35 +9,35 @@
 </div>
 
 <div class="overflow-x-auto">
-  <table class="border-2 border-pink-300 w-full">
+  <table class="border-2 border-blue-300 w-full">
     <thead class="bg-black text-white">
-      <tr class="border-pink-300 border-2">
-        <th class="border-pink-300 border-2">S/N</th>
-        <th class="border-pink-300 border-2">Vendor Name</th>
-        <th class="border-pink-300 border-2">Bus Name</th>
-        <th class="border-pink-300 border-2">Vehicle No</th>
-        <th class="border-pink-300 border-2">Departure Location</th>
-        <th class="border-pink-300 border-2">Arrival Location</th>
-        <th class="border-pink-300 border-2">Total Seats</th>
-        <th class="border-pink-300 border-2">Departure Time</th>
-        <th class="border-pink-300 border-2">Arrival Time</th>
-        <th class="border-pink-300 border-2">Action</th>
+      <tr class="border-blue-300 border-2">
+        <th class="border-blue-300 border-2">S/N</th>
+        <th class="border-blue-300 border-2">Vendor Name</th>
+        <th class="border-blue-300 border-2">Bus Name</th>
+        <th class="border-blue-300 border-2">Vehicle No</th>
+        <th class="border-blue-300 border-2">Departure Location</th>
+        <th class="border-blue-300 border-2">Arrival Location</th>
+        <th class="border-blue-300 border-2">Total Seats</th>
+        <th class="border-blue-300 border-2">Departure Time</th>
+        <th class="border-blue-300 border-2">Arrival Time</th>
+        <th class="border-blue-300 border-2">Action</th>
       </tr>
     </thead>
     <tbody>
       @for (item of busList; track $index) {
       <tr class="text-center">
-        <td class="border-pink-300 border-2">{{ $index + 1 }}.</td>
-        <td class="border-pink-300 border-2">{{ item.vendorName }}</td>
-        <td class="border-pink-300 border-2">{{ item.busName }}</td>
-        <td class="border-pink-300 border-2">{{ item.busVehicleNo }}</td>
-        <td class="border-pink-300 border-2">{{ item.fromLocationName }}</td>
-        <td class="border-pink-300 border-2">{{ item.toLocationName }}</td>
-        <td class="border-pink-300 border-2">{{ item.totalSeats }}</td>
-        <td class="border-pink-300 border-2">{{ item.departureTime }}</td>
-        <td class="border-pink-300 border-2">{{ item.arrivalTime }}</td>
+        <td class="border-blue-300 border-2">{{ $index + 1 }}.</td>
+        <td class="border-blue-300 border-2">{{ item.vendorName }}</td>
+        <td class="border-blue-300 border-2">{{ item.busName }}</td>
+        <td class="border-blue-300 border-2">{{ item.busVehicleNo }}</td>
+        <td class="border-blue-300 border-2">{{ item.fromLocationName }}</td>
+        <td class="border-blue-300 border-2">{{ item.toLocationName }}</td>
+        <td class="border-blue-300 border-2">{{ item.totalSeats }}</td>
+        <td class="border-blue-300 border-2">{{ item.departureTime }}</td>
+        <td class="border-blue-300 border-2">{{ item.arrivalTime }}</td>
 
-        <td class="border-pink-300 border-2">
+        <td class="border-blue-300 border-2">
           <button
             class="text-red-900 text-lg hover:text-red-700 mr-3"
             (click)="onDeleteBus(item.busId)"
@@ -45,7 +45,7 @@
             <i class="fa fa-trash"></i>
           </button>
           <button
-            class="text-red-900 text-lg hover:text-red-700 mr-3"
+            class="text-green-900 text-lg hover:text-green-700 mr-3"
             (click)="onEditBus(item)"
           >
             <i class="fa fa-edit"></i>

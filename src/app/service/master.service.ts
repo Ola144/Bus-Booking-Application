@@ -1,19 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, filter, map, Observable, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import {
   BusBookingModel,
-  BusModel,
-  IAPIResponse,
-  IBookedSeatNo,
-  IBookedSeats,
   IBookingTicket,
   IBus,
   ILocation,
   IUser,
   IVendor,
   LocationModel,
-  LoginModel,
   UserModel,
   VendorModel,
 } from '../../model/BusBooking';

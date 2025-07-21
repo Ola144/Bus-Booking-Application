@@ -1,5 +1,12 @@
 import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+  RouterOutlet,
+} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { fromEvent, map, merge, of } from 'rxjs';
 
@@ -12,12 +19,27 @@ import { fromEvent, map, merge, of } from 'rxjs';
 })
 export class AppComponent implements OnInit, AfterViewInit {
   toastr: ToastrService = inject(ToastrService);
+  router: Router = inject(Router);
+  loader: boolean = false;
 
   isOnline = navigator.onLine;
 
   ngOnInit(): void {
     // window.addEventListener('online', this.onlineHandler);
     // window.addEventListener('offline', this.offlineHandler);
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.loader = true;
+        window.scrollTo(0, 0);
+      } else if (
+        event instanceof NavigationEnd ||
+        event instanceof NavigationCancel ||
+        event instanceof NavigationError
+      ) {
+        this.loader = false;
+      }
+    });
   }
 
   ngAfterViewInit(): void {

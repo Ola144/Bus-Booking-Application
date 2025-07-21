@@ -6,10 +6,17 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-search-result',
-  imports: [CommonModule, RouterLink, NavbarComponent, FooterComponent],
+  imports: [
+    CommonModule,
+    RouterLink,
+    NavbarComponent,
+    FooterComponent,
+    FormsModule,
+  ],
   templateUrl: './search-result.component.html',
   styleUrl: './search-result.component.css',
 })
@@ -20,6 +27,8 @@ export class SearchResultComponent implements OnInit {
 
   searchObj: SearchModel = new SearchModel();
   busList: IBus[] = [];
+
+  duration: string = '';
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
@@ -47,5 +56,9 @@ export class SearchResultComponent implements OnInit {
       .catch((err) => {
         this.toastr.error(err.message);
       });
+  }
+
+  sortBusByPrice() {
+    this.busList = this.busList.sort((a: IBus, b: IBus) => a.price - b.price);
   }
 }

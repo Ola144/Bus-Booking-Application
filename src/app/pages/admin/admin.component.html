@@ -1,8 +1,11 @@
 <div class="w-full my-1 px-3 py-2 mb-4 sm:pb-0 pb-12">
   <div
-    class="m-6 p-5 bg-gradient-to-r from-pink-600 via-pink-900 to-pink-600 text-white text-center rounded-lg"
+    class="m-6 p-5 bg-gradient-to-t from-blue-400 via-blue-500 to-blue-400 text-white text-center rounded-lg"
   >
-    <img src="/public/avatar.jpg" alt="Avatar" class="w-full" />
+    <div class="flex items-center justify-center">
+      <img src="assets/user-avatar.png" alt="Avatar" class="w-24" />
+    </div>
+
     <div class="mt-5">
       <p class="text-white">
         <span class="font-bold text-pink-100">Name:</span>
@@ -25,31 +28,31 @@
 
   <div class="my-5 flex gap-2">
     <button
-      class="border-2 border-pink-500 rounded-md bg-pink-900 px-3 py-2 text-white hover:bg-pink-700"
+      class="border-2 border-blue-500 rounded-md bg-blue-900 px-3 py-2 text-white hover:bg-blue-700"
       (click)="setStatus('users')"
     >
       Users
     </button>
     <button
-      class="border-2 border-pink-500 rounded-md bg-pink-900 px-3 py-2 text-white hover:bg-pink-700"
+      class="border-2 border-blue-500 rounded-md bg-blue-900 px-3 py-2 text-white hover:bg-blue-700"
       (click)="setStatus('vendors')"
     >
       Vendors
     </button>
     <button
-      class="border-2 border-pink-500 rounded-md bg-pink-900 px-3 py-2 text-white hover:bg-pink-700"
+      class="border-2 border-blue-500 rounded-md bg-blue-900 px-3 py-2 text-white hover:bg-blue-700"
       (click)="setStatus('bookings')"
     >
       Bookings
     </button>
     <button
-      class="border-2 border-pink-500 rounded-md bg-pink-900 px-3 py-2 text-white hover:bg-pink-700"
+      class="border-2 border-blue-500 rounded-md bg-blue-900 px-3 py-2 text-white hover:bg-blue-700"
       (click)="setStatus('bus')"
     >
       Bus
     </button>
     <button
-      class="border-2 border-pink-500 rounded-md bg-pink-900 px-3 py-2 text-white hover:bg-pink-700"
+      class="border-2 border-blue-500 rounded-md bg-blue-900 px-3 py-2 text-white hover:bg-blue-700"
       (click)="setStatus('location')"
     >
       Location

@@ -1,0 +1,14 @@
+.loadingLine {
+  animation: loader 1s infinite alternate ease-in-out;
+  transition: 4s;
+}
+
+@keyframes loader {
+  0% {
+    transform: translateX(0px);
+    transition: 4ms;
+  }
+  100% {
+    transform: translateX(88px);
+  }
+}

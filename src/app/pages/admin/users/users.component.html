@@ -1,8 +1,8 @@
 <div class="flex justify-between mb-2 mt-5">
-  <h1 class="text-pink-800 font-bold text-3xl">Users</h1>
+  <h1 class="text-blue-800 font-bold text-3xl">Users</h1>
   <input
     type="text"
-    class="w-64 border-2 border-pink-500 rounded-md bg-pink-400 px-3 py-2 text-white placeholder:text-white"
+    class="w-64 border-2 border-blue-500 rounded-md bg-blue-400 px-3 py-2 text-white placeholder:text-white"
     #filterText
     (input)="searchUser(filterText.value)"
     placeholder="Search by name..."
@@ -10,29 +10,29 @@
 </div>
 
 <div class="overflow-x-auto">
-  <table class="border-2 border-pink-300 w-full overflow-x-auto">
+  <table class="border-2 border-blue-300 w-full overflow-x-auto">
     <thead class="bg-black text-white">
-      <tr class="border-pink-300 border-2">
-        <th class="border-pink-300 border-2">S/N</th>
-        <th class="border-pink-300 border-2">Name</th>
-        <th class="border-pink-300 border-2">Email</th>
-        <th class="border-pink-300 border-2">Role</th>
-        <th class="border-pink-300 border-2">Created Date</th>
-        <th class="border-pink-300 border-2">Password</th>
-        <th class="border-pink-300 border-2">Action</th>
+      <tr class="border-blue-300 border-2">
+        <th class="border-blue-300 border-2">S/N</th>
+        <th class="border-blue-300 border-2">Name</th>
+        <th class="border-blue-300 border-2">Email</th>
+        <th class="border-blue-300 border-2">Role</th>
+        <th class="border-blue-300 border-2">Created Date</th>
+        <th class="border-blue-300 border-2">Password</th>
+        <th class="border-blue-300 border-2">Action</th>
       </tr>
     </thead>
     <tbody>
       @for (item of filteredList; track $index) {
       <tr class="text-center">
-        <td class="border-pink-300 border-2">{{ $index + 1 }}.</td>
-        <td class="border-pink-300 border-2">{{ item.fullName }}</td>
-        <td class="border-pink-300 border-2">{{ item.emailId }}</td>
-        <td class="border-pink-300 border-2">{{ item.role }}</td>
-        <td class="border-pink-300 border-2">{{ item.date }}</td>
-        <td class="border-pink-300 border-2">{{ item.password }}</td>
+        <td class="border-blue-300 border-2">{{ $index + 1 }}.</td>
+        <td class="border-blue-300 border-2">{{ item.fullName }}</td>
+        <td class="border-blue-300 border-2">{{ item.emailId }}</td>
+        <td class="border-blue-300 border-2">{{ item.role }}</td>
+        <td class="border-blue-300 border-2">{{ item.date }}</td>
+        <td class="border-blue-300 border-2">{{ item.password }}</td>
 
-        <td class="border-pink-300 border-2">
+        <td class="border-blue-300 border-2">
           <button
             class="text-red-900 text-lg hover:text-red-700 mr-3"
             (click)="onDelete(item.uid)"

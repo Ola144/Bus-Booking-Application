@@ -1,1 +1,14 @@
 <router-outlet></router-outlet>
+
+@if (loader) {
+<div
+  class="w-full min-h-full absolute top-0 left-0 z-50 bg-gray-900/50 flex items-center justify-center"
+>
+  <div class="w-fit h-fit bg-slate-300 py-2 px-7 rounded-md text-center">
+    <h2 class=""><i class="fa fa-bus"></i> Bus Booking</h2>
+    <div class="bg-blue-600 w-32 my-3">
+      <div class="border-2 border-white-700 w-10 loadingLine"></div>
+    </div>
+  </div>
+</div>
+}

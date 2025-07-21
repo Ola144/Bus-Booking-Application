@@ -54,10 +54,15 @@ export class BookTicketComponent implements OnInit {
   passengerSeatNo: number[] = [];
   bookedTicketScheduleId: any = '';
 
+  time!: IBus;
+  duration: string = '';
+
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
       this.scheduleId = res.scheduleId;
       this.bookingTicketObj.scheduleId = res.scheduleId;
+
+      localStorage.setItem('scheduleId', JSON.stringify(res.scheduleId));
 
       this.getScheduleBus();
     });
@@ -71,6 +76,9 @@ export class BookTicketComponent implements OnInit {
     const localSearchBus = localStorage.getItem('SearchBusResult');
     if (localSearchBus != null)
       this.searchBusResult = JSON.parse(localSearchBus);
+
+    // const localDuration = localStorage.getItem('duration');
+    // if (localDuration != null) this.duration = JSON.parse(localDuration);
 
     const localUserData = localStorage.getItem('BusBookingUser');
     if (localUserData != null) {
@@ -111,6 +119,32 @@ export class BookTicketComponent implements OnInit {
       .getScheduleBus(this.scheduleId)
       .then((res: any) => {
         this.scheduleBusList = res;
+
+        for (let index = 0; index < this.scheduleBusList.length; index++) {
+          this.time = this.scheduleBusList[index];
+
+          if (this.time.departureTime && this.time.arrivalTime) {
+            const [departureHour, departureMinute] = this.time.departureTime
+              .split(':')
+              .map(Number);
+            const [arrivalHour, arrivalMinute] = this.time.arrivalTime
+              .split(':')
+              .map(Number);
+
+            const depart = new Date();
+            depart.setHours(departureHour, departureMinute, 0);
+
+            const arrival = new Date();
+            arrival.setHours(arrivalHour, arrivalMinute, 0);
+
+            const diffMs = arrival.getTime() - depart.getTime();
+            const diffMinutes = Math.floor(diffMs / 60000);
+            const hours = Math.floor(diffMinutes / 60);
+            const minutes = diffMinutes % 60;
+
+            this.duration = `${hours} hour(s) ${minutes} minute(s)`;
+          }
+        }
 
         for (let index = 0; index < this.scheduleBusList.length; index++) {
           const seats = this.scheduleBusList[index].totalSeats;

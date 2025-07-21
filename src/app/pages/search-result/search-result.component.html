@@ -1,90 +1,99 @@
-<app-navbar></app-navbar>
-<div class="pt-4 px-5 mx-auto sm:pb-0 pb-12 h-full">
-  @if (busList.length === 0) {
-  <div
-    class="flex justify-center items-center text-red-900 text-center font-bold md:text-2xl text-lg mt-10"
-  >
-    <div class="h-screen flex justify-center items-center">
-      No bus is available for your choosen location, <br />try anoter time.
-      Thanks!
-    </div>
+<section class="">
+  <div>
+    <app-navbar></app-navbar>
   </div>
-  } @else {
-  <div class="flex justify-between items-center mt-20">
-    <h3 class="text-3xl">Available Bus</h3>
-    <div>
-      <button
-        class="w-auto bg-none border-2 py-1 px-2 rounded-lg border-pink-400 hover:bg-pink-400 mr-2"
-      >
-        Filter
-      </button>
-      <button
-        class="w-auto bg-none border-2 py-1 px-2 rounded-lg border-pink-400 hover:bg-pink-400"
-      >
-        <i class="fa fa-sort mr-1"></i>Sort
-      </button>
-    </div>
-  </div>
-
-  <div class="mt-5 w-full">
-    @for (item of busList; track $index) {
+  <div class="pt-4 px-5 mx-auto sm:pb-0 pb-12 h-full">
+    @if (busList.length === 0) {
     <div
-      class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5 lg:gap-2 md:gap-3 border-l-4 border-pink-600 mb-4 bg-white py-14 px-5 rounded-md shadow-2xl"
+      class="flex justify-center items-center text-red-900 text-center font-bold md:text-2xl text-lg mt-10"
     >
+      <div class="h-screen flex justify-center items-center">
+        No bus is available for your choosen location, <br />try anoter time.
+        Thanks!
+      </div>
+    </div>
+    } @else {
+    <div class="flex justify-between items-center mt-20">
+      <h3 class="text-3xl">Available Bus</h3>
       <div>
-        <h4 class="text-lg font-bold">
-          <i class="fa fa-bus"></i> {{ item.busName }}
-        </h4>
-        <p class="text-gray-400 text-sm">
-          <i class="fa fa-bed font-bold text-black"></i> AC Sleeper
-        </p>
+        <!-- <button
+          class="w-auto bg-none border-2 py-1 px-2 rounded-lg border-blue-400 hover:bg-blue-400 mr-2"
+        >
+          Filter
+        </button> -->
+        @if (busList.length > 1) {
+        <button
+          class="w-auto bg-none border-2 py-1 px-2 rounded-lg border-blue-400 hover:bg-blue-400"
+          (click)="sortBusByPrice()"
+        >
+          <i class="fa fa-sort mr-1"></i>Sort By Price
+        </button>
+        }
+      </div>
+    </div>
+
+    <div class="mt-5 w-full h-full">
+      @for (item of busList; track $index) {
+      <div
+        class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-5 lg:gap-2 md:gap-3 border-l-4 border-pink-600 mb-4 bg-white py-14 px-5 rounded-md shadow-2xl h-fit justify-center items-center w-full mx-auto"
+      >
         <div>
-          <span
-            class="w-auto bg-green-500 px-1 py-0.5 rounded-sm text-xs text-white mr-1"
-            ><i class="fa fa-star"></i> 4.5</span
-          >
-          <span
-            class="w-auto bg-blue-500 px-1 py-0.5 rounded-sm text-xs text-white"
-            ><i class="fa fa-flash"></i> Fast</span
-          >
+          <h4 class="text-lg font-bold">
+            <i class="fa fa-bus"></i> {{ item.busName }}
+          </h4>
+          <p class="text-gray-400 text-sm">
+            <i class="fa fa-bed font-bold text-black"></i> AC Sleeper
+          </p>
+          <div>
+            <span
+              class="w-auto bg-green-500 px-1 py-0.5 rounded-sm text-xs text-white mr-1"
+              ><i class="fa fa-star"></i> 4.5</span
+            >
+            <span
+              class="w-auto bg-blue-500 px-1 py-0.5 rounded-sm text-xs text-white"
+              ><i class="fa fa-flash"></i> Fast</span
+            >
+          </div>
+        </div>
+
+        <div class="text-end md:text-end lg:text-end">
+          <p>Departure</p>
+          <p>
+            <i class="fa fa-clock-o"></i>
+            {{ item.departureTime }}
+          </p>
+        </div>
+        <!-- <div>
+          <p>Duration</p>
+          <p><i class="fa fa-clock-o"></i> {{ duration }}</p>
+        </div> -->
+
+        <div class="text-end md:text-end lg:text-end">
+          <p>Arrival</p>
+          <p><i class="fa fa-clock-o"></i> {{ item.arrivalTime }}</p>
+        </div>
+        <div class="text-start md:text-start lg:text-end relative">
+          <p>Price</p>
+          <p class="mb-0"><i class="fa fa-money"></i> {{ item.price }}</p>
+          <p class="text-green-400 mt-0">$ Best Price</p>
+        </div>
+
+        <div class="mt-6 text-end md:text-end lg:text-end">
+          <div class="flex justify-end md:justify-end">
+            <button
+              class="w-auto bg-blue-600 py-2 px-5 rounded-lg hover:bg-blue-400 text-white"
+              [routerLink]="`/book-ticket/${item.scheduleId}`"
+            >
+              <i class="fa fa-arrow-right"></i>
+            </button>
+          </div>
         </div>
       </div>
-
-      <div class="text-end md:text-start lg:text-start">
-        <p>Departure</p>
-        <p>
-          <i class="fa fa-clock-o"></i>
-          {{ item.departureTime }}
-        </p>
-      </div>
-      <div>
-        <p>Duration</p>
-        <p><i class="fa fa-clock-o"></i> 8h 30m</p>
-      </div>
-
-      <div class="text-end md:text-start lg:text-start">
-        <p>Arrival</p>
-        <p><i class="fa fa-clock-o"></i> {{ item.arrivalTime }}</p>
-      </div>
-      <div>
-        <p>Price</p>
-        <p class="mb-0"><i class="fa fa-money"></i> {{ item.price }}</p>
-        <p class="text-green-400 mt-0">$ Best Price</p>
-      </div>
-
-      <div class="mt-6">
-        <div class="flex justify-end md:justify-start">
-          <button
-            class="w-auto bg-blue-600 py-2 px-5 rounded-lg hover:bg-blue-400 text-white"
-            [routerLink]="`/book-ticket/${item.scheduleId}`"
-          >
-            <i class="fa fa-arrow-right"></i>
-          </button>
-        </div>
-      </div>
+      }
     </div>
     }
   </div>
-  }
-</div>
-<app-footer></app-footer>
+  <div>
+    <app-footer></app-footer>
+  </div>
+</section>

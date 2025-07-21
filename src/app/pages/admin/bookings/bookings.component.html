@@ -1,31 +1,31 @@
 <div class="flex justify-between mb-2 mt-5">
-  <h1 class="text-pink-800 font-bold text-3xl">Bookings</h1>
+  <h1 class="text-blue-800 font-bold text-3xl">Bookings</h1>
 </div>
 <div class="overflow-x-auto">
-  <table class="border-2 border-pink-300 w-full table-auto border-collapse">
+  <table class="border-2 border-blue-300 w-full table-auto border-collapse">
     <thead class="bg-black text-white">
-      <tr class="border-pink-300 border-2">
-        <th class="border-pink-300 border-2 p-1">S/N</th>
-        <th class="border-pink-300 border-2 p-1">Customer Name</th>
-        <th class="border-pink-300 border-2 p-1">Customer Email</th>
-        <th class="border-pink-300 border-2 p-1">Booked Date</th>
-        <th class="border-pink-300 border-2 p-1">Date Of Journey</th>
-        <th class="border-pink-300 border-2 p-1">Passengers</th>
-        <th class="border-pink-300 border-2 p-1">Destination</th>
-        <th class="border-pink-300 border-2 p-1">Action</th>
+      <tr class="border-blue-300 border-2">
+        <th class="border-blue-300 border-2 p-1">S/N</th>
+        <th class="border-blue-300 border-2 p-1">Customer Name</th>
+        <th class="border-blue-300 border-2 p-1">Customer Email</th>
+        <th class="border-blue-300 border-2 p-1">Booked Date</th>
+        <th class="border-blue-300 border-2 p-1">Date Of Journey</th>
+        <th class="border-blue-300 border-2 p-1">Passengers</th>
+        <th class="border-blue-300 border-2 p-1">Destination</th>
+        <th class="border-blue-300 border-2 p-1">Action</th>
       </tr>
     </thead>
     <tbody>
       @for (item of bookingList; track $index) {
       <tr class="text-center">
-        <td class="border-pink-300 border-2">{{ $index + 1 }}.</td>
-        <td class="border-pink-300 border-2">{{ item.customerName }}</td>
-        <td class="border-pink-300 border-2">{{ item.emailId }}</td>
-        <td class="border-pink-300 border-2">{{ item.bookingDate | date }}</td>
-        <td class="border-pink-300 border-2">
+        <td class="border-blue-300 border-2">{{ $index + 1 }}.</td>
+        <td class="border-blue-300 border-2">{{ item.customerName }}</td>
+        <td class="border-blue-300 border-2">{{ item.emailId }}</td>
+        <td class="border-blue-300 border-2">{{ item.bookingDate | date }}</td>
+        <td class="border-blue-300 border-2">
           {{ item.dateOfJourney | date }}
         </td>
-        <td class="border-pink-300 border-2">
+        <td class="border-blue-300 border-2">
           @for (passenger of item.busBookingPassengers; track $index) {
           <p class="block">
             <span [class]="item.busBookingPassengers.length > 1 ? 'blcok' : ''">
@@ -39,12 +39,12 @@
           </p>
           }
         </td>
-        <td class="border-pink-300 border-2">
+        <td class="border-blue-300 border-2">
           {{ item.fromLocation }} <i class="fa fa-arrows-h"></i>
           {{ item.toLocation }}
         </td>
 
-        <td class="border-pink-300 border-2">
+        <td class="border-blue-300 border-2">
           <button
             class="text-red-900 text-lg hover:text-red-700 mr-3"
             (click)="onDeleteTicket(item.bookingId)"

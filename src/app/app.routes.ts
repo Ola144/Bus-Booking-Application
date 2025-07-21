@@ -3,7 +3,15 @@ import { AccountsComponent } from './pages/accounts/accounts.component';
 import { SearchComponent } from './pages/search/search.component';
 import { SearchResultComponent } from './pages/search-result/search-result.component';
 import { BookTicketComponent } from './pages/book-ticket/book-ticket.component';
-import { busBookingCanActivateGuard } from './guards/bus-booking.guard';
+import {
+  busBookingCanActivateGuard,
+  resolveBookedBus,
+  resolveBus,
+  resolveLocation,
+  resolveScheduleBus,
+  resolveSearchBus,
+  resolveUsers,
+} from './guards/bus-booking.guard';
 import { AdminComponent } from './pages/admin/admin.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoggedUserComponent } from './pages/logged-user/logged-user.component';
@@ -19,6 +27,7 @@ export const routes: Routes = [
   {
     path: 'search',
     component: SearchComponent,
+    resolve: { location: resolveLocation },
   },
   {
     path: 'account',
@@ -27,6 +36,7 @@ export const routes: Routes = [
   {
     path: 'search-result/:fromId/:toId/:date',
     component: SearchResultComponent,
+    resolve: { resolveSearchBus },
   },
   {
     path: '',
@@ -36,10 +46,18 @@ export const routes: Routes = [
       {
         path: 'book-ticket/:scheduleId',
         component: BookTicketComponent,
+        resolve: { scheduleBus: resolveScheduleBus },
       },
       {
         path: 'admin',
         component: AdminComponent,
+        resolve: {
+          bus: resolveBus,
+          location: resolveLocation,
+          users: resolveUsers,
+          vendor: resolveLocation,
+          bookedBus: resolveBookedBus,
+        },
       },
       {
         path: 'home',
@@ -49,6 +67,7 @@ export const routes: Routes = [
       {
         path: 'user',
         component: LoggedUserComponent,
+        resolve: { users: resolveUsers },
       },
     ],
   },

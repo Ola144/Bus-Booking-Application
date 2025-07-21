@@ -5,18 +5,20 @@
   >
     <div class="flex justify-between items-center">
       <div>
-        <h2 class="text-xl font-bold">{{ item.busName }}</h2>
-        <p class="text-sm text-gray-400 font-bold">
+        <h2 class="text-lg md:text-xl font-bold">{{ item.busName }}</h2>
+        <p class="md:text-sm text-xs text-gray-400 font-bold">
           Date of Journey:
           {{ searchBusResult?.dateOfJourney | date : "fullDate" }}
         </p>
       </div>
       <div>
-        <h2 class="text-md font-bold">
+        <h2 class="text-xs md:text-sm font-bold">
           {{ item.fromLocationName }} <i class="fa fa-arrows-h"></i>
           {{ item.toLocationName }}
         </h2>
-        <p class="text-sm text-gray-400 font-bold">Duration: 8h 30m</p>
+        <p class="md:text-sm text-xs text-gray-400 font-bold">
+          Duration: {{ duration }}
+        </p>
       </div>
     </div>
   </div>

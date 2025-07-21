@@ -67,7 +67,7 @@ export class AccountsComponent implements OnInit {
       .logInUser(this.loginObj)
       .then(() => {
         this.isLoginLoading = false;
-        this.router.navigateByUrl('/search');
+        this.router.navigateByUrl('/home');
         this.masterService.onLogin$.next(true);
       })
       .catch((err) => {
